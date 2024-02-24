@@ -5,178 +5,196 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 
-namespace OpenGLHelloWorld
+namespace OpenGLMinecraft
 {
     class Program
     {
+        static readonly int WorldSize = 20;
+        static readonly float BlockSize = 1.0f;
+
+        static BlockType[,,] worldBlocks = new BlockType[WorldSize, WorldSize, WorldSize];
+        static Vector3 cameraPosition = new Vector3(0, 5, 20);
+         Vector2 sidsteMusPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+        static float yaw = -90.0f;
+        static float pitch = 0.0f;
+
+        static GameWindow window;
+
+        enum BlockType
+        {
+            Air,
+            Dirt,
+            Grass,
+            Stone
+        }
+
         static void Main(string[] args)
         {
-            // Opretter et vindue med en bestemt størrelse
-            var vindue = new GameWindow(1000, 800);
-            vindue.Title = "BetterCraft ikke en minecraft klon. Voksen babys hår.";
+            GenerateWorld();
 
-            // Beregner aspect ratio for vinduet
-            float aspectRatio = vindue.Width / (float)vindue.Height;
+            window = new GameWindow(800, 600);
+            window.Title = "Minecraft Classic";
 
-            // Initialiserer kameraets position og retning
-            Vector3 kameraPosition = new Vector3(0, 1, 5);
-            Vector2 sidsteMusPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-            float yaw = -90.0f;
-            float pitch = 0.0f;
-
-            // Event handler for indlæsning af vinduet
-            vindue.Load += (sender, e) =>
+            window.Load += (sender, e) =>
             {
-                // Sætter baggrundsfarven og aktiverer dybdetest
-                GL.ClearColor(Color4.CornflowerBlue);
+                GL.ClearColor(Color4.SkyBlue);
                 GL.Enable(EnableCap.DepthTest);
 
-                // Indstiller projektionsmatrixen
                 GL.MatrixMode(MatrixMode.Projection);
-                Matrix4 projektion = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 0.1f, 100.0f);
-                GL.LoadMatrix(ref projektion);
+                Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, window.Width / (float)window.Height, 0.1f, 1000.0f);
+                GL.LoadMatrix(ref projection);
 
-                // Indstiller modelview matrixen
                 GL.MatrixMode(MatrixMode.Modelview);
-                Matrix4 view = Matrix4.LookAt(kameraPosition, kameraPosition + new Vector3(0, 0, -1), Vector3.UnitY);
+                Matrix4 view = Matrix4.LookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.UnitY);
                 GL.LoadMatrix(ref view);
             };
 
-            // Event handler for rendering af hvert frame
-            vindue.RenderFrame += (sender, e) =>
+            window.RenderFrame += (sender, e) =>
             {
-                // Rydder farve- og dybdemasken
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-                // Opdaterer kameraets retning
                 Vector3 front;
                 front.X = (float)Math.Cos(MathHelper.DegreesToRadians(pitch)) * (float)Math.Cos(MathHelper.DegreesToRadians(yaw));
                 front.Y = (float)Math.Sin(MathHelper.DegreesToRadians(pitch));
                 front.Z = (float)Math.Cos(MathHelper.DegreesToRadians(pitch)) * (float)Math.Sin(MathHelper.DegreesToRadians(yaw));
-                Vector3 sePå = Vector3.Normalize(front);
+                Vector3 lookAt = Vector3.Normalize(front);
 
-                Matrix4 view = Matrix4.LookAt(kameraPosition, kameraPosition + sePå, Vector3.UnitY);
+                Matrix4 view = Matrix4.LookAt(cameraPosition, cameraPosition + lookAt, Vector3.UnitY);
                 GL.MatrixMode(MatrixMode.Modelview);
                 GL.LoadMatrix(ref view);
 
-                // Tegner gulvet og spilleren
-                TegnGulv();
-                TegnSpiller();
+                DrawWorld();
 
-                vindue.SwapBuffers();
+                window.SwapBuffers();
             };
 
-            // Event handler for opdatering af hvert frame
-            vindue.UpdateFrame += (sender, e) =>
+            window.UpdateFrame += (sender, e) =>
             {
-                // Opdaterer kameraets position baseret på tastetryk
-                var tastaturState = Keyboard.GetState();
-                var museState = Mouse.GetState();
-                var musePos = new Vector2(museState.X, museState.Y);
-                Vector2 delta = sidsteMusPos - musePos;
-                sidsteMusPos = musePos;
+                var keyboardState = Keyboard.GetState();
 
-                yaw += delta.X * 0.1f;
-                pitch -= delta.Y * 0.1f;
-
-                pitch = Math.Clamp(pitch, -90.0f, 90.0f);
-
-                Vector3 front;
-                front.X = (float)Math.Cos(MathHelper.DegreesToRadians(pitch)) * (float)Math.Cos(MathHelper.DegreesToRadians(yaw));
-                front.Y = (float)Math.Sin(MathHelper.DegreesToRadians(pitch));
-                front.Z = (float)Math.Cos(MathHelper.DegreesToRadians(pitch)) * (float)Math.Sin(MathHelper.DegreesToRadians(yaw));
-
-                float bevægelsesHastighed = 0.1f;
-                if (tastaturState.IsKeyDown(Key.W))
-                    kameraPosition += bevægelsesHastighed * Vector3.Normalize(new Vector3(front.X, 0, front.Z));
-                if (tastaturState.IsKeyDown(Key.S))
-                    kameraPosition -= bevægelsesHastighed * Vector3.Normalize(new Vector3(front.X, 0, front.Z));
-                if (tastaturState.IsKeyDown(Key.A))
-                    kameraPosition -= bevægelsesHastighed * Vector3.Normalize(Vector3.Cross(new Vector3(front.X, 0, front.Z), Vector3.UnitY));
-                if (tastaturState.IsKeyDown(Key.D))
-                    kameraPosition += bevægelsesHastighed * Vector3.Normalize(Vector3.Cross(new Vector3(front.X, 0, front.Z), Vector3.UnitY));
+                float cameraSpeed = 0.5f;
+                if (keyboardState.IsKeyDown(Key.W))
+                    cameraPosition += cameraSpeed * Vector3.Normalize(new Vector3((float)Math.Cos(MathHelper.DegreesToRadians(yaw)), 0, (float)Math.Sin(MathHelper.DegreesToRadians(yaw))));
+                if (keyboardState.IsKeyDown(Key.S))
+                    cameraPosition -= cameraSpeed * Vector3.Normalize(new Vector3((float)Math.Cos(MathHelper.DegreesToRadians(yaw)), 0, (float)Math.Sin(MathHelper.DegreesToRadians(yaw))));
+                if (keyboardState.IsKeyDown(Key.A))
+                    cameraPosition -= cameraSpeed * Vector3.Normalize(Vector3.Cross(new Vector3((float)Math.Cos(MathHelper.DegreesToRadians(yaw)), 0, (float)Math.Sin(MathHelper.DegreesToRadians(yaw))), Vector3.UnitY));
+                if (keyboardState.IsKeyDown(Key.D))
+                    cameraPosition += cameraSpeed * Vector3.Normalize(Vector3.Cross(new Vector3((float)Math.Cos(MathHelper.DegreesToRadians(yaw)), 0, (float)Math.Sin(MathHelper.DegreesToRadians(yaw))), Vector3.UnitY));
             };
 
-            // Event handler for musebevægelse
-            vindue.MouseMove += (sender, e) =>
+            Vector2 sidsteMusPos = Vector2.Zero;
+
+            window.MouseMove += (sender, e) =>
             {
-                // Opdaterer kameraets retning baseret på musens bevægelse
-                if (Mouse.GetState().IsButtonDown(MouseButton.Left))
+                var mouseState = Mouse.GetState();
+                var musePos = new Vector2(mouseState.X, mouseState.Y);
+
+                // Kontroller om musen er flyttet
+                if (sidsteMusPos != Vector2.Zero && sidsteMusPos != musePos)
                 {
-                    var museState = Mouse.GetState();
-                    var musePos = new Vector2(museState.X, museState.Y);
-                    Vector2 delta = sidsteMusPos - musePos;
-                    sidsteMusPos = musePos;
+                    var deltaX = (musePos.X - sidsteMusPos.X) * 0.1f; // Juster følsomheden her
+                    var deltaY = (musePos.Y - sidsteMusPos.Y) * 0.1f; // Juster følsomheden her
 
-                    yaw += delta.X * 0.1f;
-                    pitch -= delta.Y * 0.1f;
+                    yaw += deltaX;
+                    pitch -= deltaY;
 
-                    pitch = Math.Clamp(pitch, -90.0f, 90.0f);
+                    Mouse.SetPosition(window.X + window.Width / 2, window.Y + window.Height / 2);
                 }
+
+                sidsteMusPos = musePos;
             };
 
-            // Starter vinduets løkke
-            vindue.Run();
+
+            window.Run();
         }
 
-        static void TegnGulv()
+        static void GenerateWorld()
         {
-            // Størrelsen af gulvet
-            float størrelse = 4.0f;
-            float højde = -5.0f;
+            Random random = new Random();
 
-            // Farven på gulvet
-            Color4 topFarve = new Color4(0.0f, 0.6f, 0.0f, 1.0f); // Dæmpet grøn farve
-            Color4 sideFarve = new Color4(0.4f, 0.2f, 0.0f, 1.0f); // Brun farve
-
-            // Tegn gulvet som en solid blok
-            GL.Begin(PrimitiveType.Quads);
-
-            // Tegn bunden og toppen af gulvet
-            GL.Color4(topFarve); // Grøn farve for toppen
-            for (float y = højde; y <= 0.0f; y += -højde)
+            for (int x = 0; x < WorldSize; x++)
             {
-                GL.Vertex3(-størrelse, y, -størrelse);
-                GL.Vertex3(størrelse, y, -størrelse);
-                GL.Vertex3(størrelse, y, størrelse);
-                GL.Vertex3(-størrelse, y, størrelse);
+                for (int z = 0; z < WorldSize; z++)
+                {
+                    int height = random.Next(1, WorldSize); // Random height for terrain
+                    for (int y = 0; y < height; y++)
+                    {
+                        if (y == 0)
+                            worldBlocks[x, y, z] = BlockType.Stone;
+                        else if (y == height - 1)
+                            worldBlocks[x, y, z] = BlockType.Grass;
+                        else
+                            worldBlocks[x, y, z] = BlockType.Dirt;
+                    }
+                }
             }
-
-            // Tegn siderne af gulvet
-            GL.Color4(sideFarve); // Brun farve for siderne
-            for (float x = -størrelse; x <= størrelse; x += størrelse * 2)
-            {
-                GL.Vertex3(x, højde, -størrelse);
-                GL.Vertex3(x, 0.0f, -størrelse);
-                GL.Vertex3(x, 0.0f, størrelse);
-                GL.Vertex3(x, højde, størrelse);
-            }
-
-            // Tegn de to manglende sider
-            for (float z = -størrelse; z <= størrelse; z += størrelse * 2)
-            {
-                GL.Vertex3(-størrelse, højde, z);
-                GL.Vertex3(-størrelse, 0.0f, z);
-                GL.Vertex3(størrelse, 0.0f, z);
-                GL.Vertex3(størrelse, højde, z);
-            }
-
-            GL.End();
         }
 
-
-
-        // Tegn spilleren
-        static void TegnSpiller()
+        static void DrawWorld()
         {
+            for (int x = 0; x < WorldSize; x++)
+            {
+                for (int z = 0; z < WorldSize; z++)
+                {
+                    for (int y = 0; y < WorldSize; y++)
+                    {
+                        switch (worldBlocks[x, y, z])
+                        {
+                            case BlockType.Dirt:
+                                DrawBlock(x, y, z, Color.Brown);
+                                break;
+                            case BlockType.Grass:
+                                DrawBlock(x, y, z, Color.Green);
+                                break;
+                            case BlockType.Stone:
+                                DrawBlock(x, y, z, Color.Gray);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        static void DrawBlock(int x, int y, int z, Color color)
+        {
+            GL.Color3(color);
             GL.Begin(PrimitiveType.Quads);
-            GL.Color4(0.5f, 0.0f, 0.0f, 1.0f);
+            // Front face
+            GL.Vertex3(x, y, z);
+            GL.Vertex3(x + 1, y, z);
+            GL.Vertex3(x + 1, y + 1, z);
+            GL.Vertex3(x, y + 1, z);
 
-            GL.Vertex3(-0.2f, 1.0f, -0.2f);
-            GL.Vertex3(0.2f, 1.0f, -0.2f);
-            GL.Vertex3(0.2f, 1.0f, 0.2f);
-            GL.Vertex3(-0.2f, 1.0f, 0.2f);
+            // Back face
+            GL.Vertex3(x, y, z + 1);
+            GL.Vertex3(x + 1, y, z + 1);
+            GL.Vertex3(x + 1, y + 1, z + 1);
+            GL.Vertex3(x, y + 1, z + 1);
 
+            // Top face
+            GL.Vertex3(x, y + 1, z);
+            GL.Vertex3(x + 1, y + 1, z);
+            GL.Vertex3(x + 1, y + 1, z + 1);
+            GL.Vertex3(x, y + 1, z + 1);
+
+            // Bottom face
+            GL.Vertex3(x, y, z);
+            GL.Vertex3(x + 1, y, z);
+            GL.Vertex3(x + 1, y, z + 1);
+            GL.Vertex3(x, y, z + 1);
+
+            // Left face
+            GL.Vertex3(x, y, z);
+            GL.Vertex3(x, y, z + 1);
+            GL.Vertex3(x, y + 1, z + 1);
+            GL.Vertex3(x, y + 1, z);
+
+            // Right face
+            GL.Vertex3(x + 1, y, z);
+            GL.Vertex3(x + 1, y, z + 1);
+            GL.Vertex3(x + 1, y + 1, z + 1);
+            GL.Vertex3(x + 1, y + 1, z);
             GL.End();
         }
     }
