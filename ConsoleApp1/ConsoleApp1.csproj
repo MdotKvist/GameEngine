@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="NewFile1.txt" />
+    <None Remove="PerlinNoise" />
   </ItemGroup>
 
   <ItemGroup>

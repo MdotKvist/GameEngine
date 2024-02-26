@@ -1,92 +1,135 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
 
 namespace OpenGLMinecraft
 {
-    class Game : GameWindow
+    public class Game : GameWindow // Ændret navnet fra 'Game' til 'OpenGLMinecraft'
     {
-        // Definér kameraets position
-        Vector3 cameraPosition = new Vector3(0, 0, 0);
-        bool isPaused = false;
+        private const int BlockSize = 1; // Ændret 'float' til 'int' fordi blokstørrelsen er i hele enheder
+        private const int RenderDistance = 2 * BlockSize; // Flyttet RenderDistance definition før WorldSize
+        private const int WorldSizeX = RenderDistance * 2;
+        private const int WorldSizeY = 8; // Ændret WorldSizeY til 8
+        private const int WorldSizeZ = RenderDistance * 2;
+        private const int ChunkSize = 16; // Flyttet ChunkSize definition før brugen i UpdateLoadedChunks()
 
-        public Game(int width, int height, string title)
-            : base(width, height, GraphicsMode.Default, title) { }
+        private WorldGeneration worldGeneration;
+        private Vector3 playerPosition;
+        private Dictionary<Vector3, Chunk> loadedChunks;
+
+        public Game() : base(1280, 780, GraphicsMode.Default, "Minecraft Classic")
+        {
+            Console.WriteLine("Vindue åbnet");
+            worldGeneration = new WorldGeneration();
+            Console.WriteLine("World Generation objekt");
+
+            playerPosition = new Vector3(0, 0, 0);
+            loadedChunks = new Dictionary<Vector3, Chunk>();
+        }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            Console.WriteLine("On load");
 
-            GL.ClearColor(Color4.SkyBlue);
             GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.CullFace);
+            Console.WriteLine("CullFace");
 
+            Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, Width / (float)Height, 0.1f, 100.0f);
             GL.MatrixMode(MatrixMode.Projection);
-            Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, Width / (float)Height, 0.1f, 1000.0f);
             GL.LoadMatrix(ref projection);
 
-            GL.MatrixMode(MatrixMode.Modelview);
-            Matrix4 view = Matrix4.LookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.UnitY);
-            GL.LoadMatrix(ref view);
-
-            // Load texture and other initialization here
+            worldGeneration.GenerateWorld();
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
 
-            var keyboardState = Keyboard.GetState();
-
-            // Toggle pausing when Escape is pressed
-            if (keyboardState.IsKeyDown(Key.Escape))
-            {
-                TogglePause();
-            }
-
-            // Update game logic when not paused
-            if (!isPaused)
-            {
-                UpdateGameLogic();
-            }
+            playerPosition += new Vector3(0.1f, 0, 0);
+            UpdateLoadedChunks();
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
+            Console.WriteLine("Render frame");
+
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            Console.WriteLine("GL CLEAR");
+
+            Matrix4 modelview = Matrix4.LookAt(playerPosition + new Vector3(0, 0, RenderDistance * 2), playerPosition, Vector3.UnitY);
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadMatrix(ref modelview);
+
+            RenderScene();
+            Console.WriteLine("Rendering scene");
+            SwapBuffers();
+            Console.WriteLine("SwapBuffers");
+        }
+
+        private void RenderScene()
+        {
+            Console.WriteLine("Rendering scene");
+
+            GL.ClearColor(Color4.SkyBlue);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            // Render game content here
-            RenderGameContent();
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadIdentity();
+            GL.Translate(-WorldSizeX / 2.0f, -WorldSizeY / 2.0f, -WorldSizeZ / 2.0f);
 
-            SwapBuffers();
-        }
-
-        void TogglePause()
-        {
-            isPaused = !isPaused;
-            if (isPaused)
+            Console.WriteLine("Rendering loaded chunks");
+            foreach (var chunk in loadedChunks.Values)
             {
-                // Perform actions when the game is paused
-                Console.WriteLine("Game paused.");
+                Console.WriteLine($"Rendering chunk at position {chunk.Position}");
+                chunk.Render();
             }
-            else
+
+            GL.Flush();
+        }
+
+        private void UpdateLoadedChunks()
+        {
+            int playerChunkX = (int)Math.Floor(playerPosition.X / ChunkSize);
+            int playerChunkY = (int)Math.Floor(playerPosition.Y / ChunkSize);
+            int playerChunkZ = (int)Math.Floor(playerPosition.Z / ChunkSize);
+
+            int renderDistanceChunks = RenderDistance / ChunkSize;
+
+            loadedChunks.Clear();
+            for (int x = playerChunkX - renderDistanceChunks; x <= playerChunkX + renderDistanceChunks; x++)
             {
-                // Perform actions when the game is resumed
-                Console.WriteLine("Game resumed.");
+                for (int y = playerChunkY - renderDistanceChunks; y <= playerChunkY + renderDistanceChunks; y++)
+                {
+                    for (int z = playerChunkZ - renderDistanceChunks; z <= playerChunkZ + renderDistanceChunks; z++)
+                    {
+                        Vector3 chunkPosition = new Vector3(x * ChunkSize, y * ChunkSize, z * ChunkSize);
+                        float distanceToChunk = Vector3.Distance(playerPosition, chunkPosition + new Vector3(ChunkSize / 2));
+
+                        if (distanceToChunk <= RenderDistance)
+                        {
+                            if (!loadedChunks.ContainsKey(chunkPosition))
+                            {
+                                loadedChunks.Add(chunkPosition, new Chunk(chunkPosition));
+                                Console.WriteLine($"Chunk at position {chunkPosition} loaded. Distance to player: {distanceToChunk}");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Chunk at position {chunkPosition} already loaded. Distance to player: {distanceToChunk}");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Chunk at position {chunkPosition} outside render distance. Distance to player: {distanceToChunk}");
+                        }
+                    }
+                }
             }
-        }
-
-        void UpdateGameLogic()
-        {
-            // Update game logic here
-        }
-
-        void RenderGameContent()
-        {
-            // Render game content here
         }
     }
 }

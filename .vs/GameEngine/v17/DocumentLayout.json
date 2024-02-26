@@ -3,32 +3,36 @@
   "WorkspaceRootPath": "D:\\GameEngine\\GameEngine\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\world.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\world.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\voxel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\voxel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\renderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\renderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\chunk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\chunk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\chunk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\chunk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\worldgeneration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\worldgeneration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\perlinnoise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\perlinnoise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\voxel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\voxel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|d:\\gameengine\\gameengine\\consoleapp1\\renderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3917F150-BD74-438F-ACBE-95874C3613A1}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\renderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,97 +42,115 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "World.cs",
-              "DocumentMoniker": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\World.cs",
-              "RelativeDocumentMoniker": "ConsoleApp1\\World.cs",
-              "ToolTip": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\World.cs",
-              "RelativeToolTip": "ConsoleApp1\\World.cs",
-              "ViewState": "AQIAAF8AAAAAAAAAAAAvwH8AAAADAAAA",
+              "DocumentIndex": 3,
+              "Title": "WorldGeneration.cs",
+              "DocumentMoniker": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\WorldGeneration.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\WorldGeneration.cs",
+              "ToolTip": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\WorldGeneration.cs",
+              "RelativeToolTip": "ConsoleApp1\\WorldGeneration.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAwFEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-25T19:32:27.19Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PerlinNoise.cs",
+              "DocumentMoniker": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\PerlinNoise.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\PerlinNoise.cs",
+              "ToolTip": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\PerlinNoise.cs",
+              "RelativeToolTip": "ConsoleApp1\\PerlinNoise.cs",
+              "ViewState": "AQIAAEkAAAAAAAAAAAAAwIIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-26T18:59:09.233Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Game.cs",
+              "DocumentMoniker": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Game.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Game.cs",
+              "ToolTip": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Game.cs",
+              "RelativeToolTip": "ConsoleApp1\\Game.cs",
+              "ViewState": "AQIAACMAAAAAAAAAAAAcwIcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-25T19:31:52.679Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Chunk.cs",
+              "DocumentMoniker": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Chunk.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Chunk.cs",
+              "ToolTip": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Chunk.cs",
+              "RelativeToolTip": "ConsoleApp1\\Chunk.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-25T19:32:22.565Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Program.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Program.cs",
+              "ToolTip": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Program.cs",
+              "RelativeToolTip": "ConsoleApp1\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T22:50:14.094Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Voxel.cs",
               "DocumentMoniker": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Voxel.cs",
               "RelativeDocumentMoniker": "ConsoleApp1\\Voxel.cs",
               "ToolTip": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Voxel.cs",
               "RelativeToolTip": "ConsoleApp1\\Voxel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAABAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-25T19:32:26.616Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "Renderer.cs",
               "DocumentMoniker": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Renderer.cs",
               "RelativeDocumentMoniker": "ConsoleApp1\\Renderer.cs",
               "ToolTip": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Renderer.cs",
               "RelativeToolTip": "ConsoleApp1\\Renderer.cs",
-              "ViewState": "AQIAAF4AAAAAAAAAAAAcwBwAAAArAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-25T19:32:25.995Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Chunk.cs",
-              "DocumentMoniker": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Chunk.cs",
-              "RelativeDocumentMoniker": "ConsoleApp1\\Chunk.cs",
-              "ToolTip": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Chunk.cs",
-              "RelativeToolTip": "ConsoleApp1\\Chunk.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAAA0wDMAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-25T19:32:22.565Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Camera.cs",
               "DocumentMoniker": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Camera.cs",
               "RelativeDocumentMoniker": "ConsoleApp1\\Camera.cs",
               "ToolTip": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Camera.cs",
               "RelativeToolTip": "ConsoleApp1\\Camera.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAqwDoAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-25T19:32:21.603Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Game.cs",
-              "DocumentMoniker": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Game.cs",
-              "RelativeDocumentMoniker": "ConsoleApp1\\Game.cs",
-              "ToolTip": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Game.cs",
-              "RelativeToolTip": "ConsoleApp1\\Game.cs",
-              "ViewState": "AQIAACEAAAAAAAAAAAAowFwAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-25T19:31:52.679Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Program.cs",
-              "RelativeDocumentMoniker": "ConsoleApp1\\Program.cs",
-              "ToolTip": "D:\\GameEngine\\GameEngine\\ConsoleApp1\\Program.cs",
-              "RelativeToolTip": "ConsoleApp1\\Program.cs",
-              "ViewState": "AQIAAD4AAAAAAAAAAAAgwGEAAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-23T22:50:14.094Z",
               "EditorCaption": ""
             }
           ]
